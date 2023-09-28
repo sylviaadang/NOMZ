@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static' , filename='css/style.css') }}">
+    <title>Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-teal-500">
+        <nav class="p-5 bg-white shadow md:flex md:items-center md:justify-between">
+            <div>
+                <span class="text-2xl font-[poppins] cursor-pointer">
+                    NOMZ
+                </span>
+            </div>
+
+            <div class="w-11/12 md:w-8/12 xl:w-1/2 h-auto p-3 rounded-3xl bg-gray-200">
+                <section class="w-full h-10 flex items-center">
+                    <!-- <span class="w-10 h-full bg-teal-500"></span> -->
+                    <input type="text" class="w-full h-full font-medium md:pl-2 focus:outline-none rounded-3xl bg-gray-200" placeholder="Search">
+                </section>
+            </div>
+
+            <ul class="md:flex md:items-center">
+                {% if "user_id" not in session %}
+                <li class="mx-4">
+                    <a href="/register" class="text-xl hover:text-teal-500 duration-500">Log In</a>
+                </li>
+                {% else %}
+                <li class="mx-4">
+                    <a href="/logout" class="text-xl hover:text-teal-500 duration-500">Log Out</a>
+                </li>
+                {% endif %}
+            </ul>
+        </nav>
+
+        <div class="grid gap-4 grid-cols-5 grid-row-4 bg-teal-500 w-full min-h-screen space-x-10 mt-10">
+            {% for restaurant in many_restaurants %}
+            <div class="w-62 p-2 bg-white rounded-xl ml-10">
+                <img class="h-40 object-cover rounded-xl" w-full h-full object-cover src="{{restaurant.image}}" alt="food">
+                <div class="p-2">
+                    <h2 class="font-bold text-lg"> {{ restaurant.name }}</h2>
+                    <p> {{restaurant.cuisine}} </p>
+                </div>
+                <div class="m-2">
+                    <a role="button" href="/{{restaurant.name}}/{{restaurant.id}}" class="text-teal">More</a>
+                </div>
+            </div>
+            {% endfor %}
+
+            <!-- <div class="w-62 p-2 bg-white rounded-xl">
+                <img class="h-40 object-cover rounded-xl" w-full h-full object-cover src="flask_app/static/images/brunch.avif" alt="brunch">
+                <div class="p-2">
+                    <h2 class="font-bold text-lg">THIS WILL BE RESTAURANT NAME</h2>
+                    <p class=""> THIS WILL BE THE HOURS OF THE RESTAURANT</p>
+                </div>
+                <div class="m-2">
+                    <a role="button" href="#" class="text-teal">More</a>
+                </div>
+            </div> -->
+
+        </div>
+
+
+
+
+
+</body>
+</html>

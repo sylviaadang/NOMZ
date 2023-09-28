@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static' , filename='css/style.css') }}">
+    <title>Single Restaurant</title>
+</head>
+<body class="bg-teal-500">
+    <nav class="p-5 bg-white shadow md:flex md:items-center md:justify-between">
+        <div>
+            <span class="text-2xl font-[poppins] cursor-pointer">
+                <a href="/">NOMZ</a>
+            </span>
+        </div>
+
+        <div class="w-11/12 md:w-8/12 xl:w-1/2 h-auto p-3 rounded-3xl bg-gray-200">
+            <section class="w-full h-10 flex items-center">
+                <!-- <span class="w-10 h-full bg-teal-500"></span> -->
+                <input type="text" class="w-full h-full font-medium md:pl-2 focus:outline-none rounded-3xl bg-gray-200" placeholder="Search">
+            </section>
+        </div>
+
+        <ul class="md:flex md:items-center">
+            {% if "user_id" not in session %}
+            <li class="mx-4">
+                <a href="/register" class="text-xl hover:text-teal-500 duration-500">Log In</a>
+            </li>
+            {% else %}
+            <li class="mx-4">
+                <a href="/logout" class="text-xl hover:text-teal-500 duration-500">Log Out</a>
+            </li>
+            {% endif %}
+        </ul>
+    </nav>
+
+    <div class="text-2xl">
+        <h2>{{one_restaurant.name}}</h2>
+        <img src="{{one_restaurant.image}}" alt="food">
+    </div>
+
+    <div>
+        <form action="/reviews/create/{{one_restaurant.id}}" method="post">
+            <!-- <div class="form-group">
+                <label for="name">Name </label>
+                <input type="text" class="form-control" id="name" name="name">
+            </div> -->
+            <div class="form-group">
+                <label for="stars">Rating</label>
+                <input type="radio" name="stars" value="1">
+                <label for="1">1</label>
+                <input type="radio" name="stars" value="2">
+                <label for="2">2</label>
+                <input type="radio" name="stars" value="3">
+                <label for="3">3</label>
+                <input type="radio" name="stars" value="4">
+                <label for="4">4</label>
+                <input type="radio" name="stars" value="5">
+                <label for="5">5</label>
+            </div>
+            <div class="form-group">
+                <label for="comment">Comment </label>
+                <input type="text" class="form-control" id="comment" name="comment">
+            </div>
+                <input type="submit" value="Submit">
+
+        </form>
+
+
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            {% for message in messages %}
+            <p>{{message}}</p>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+    </div>
+</body>
+</html>

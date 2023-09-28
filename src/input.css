@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer components {
+    .card {
+        @apply
+        bg-white text-grat-700
+        w-72 min-h-[10rem]
+        shadow-lg rounded-md overflow-hidden
+    }
+}
